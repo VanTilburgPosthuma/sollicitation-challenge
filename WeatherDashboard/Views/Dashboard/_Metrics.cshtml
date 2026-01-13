@@ -1,0 +1,41 @@
+﻿@model List<WeatherDashboard.Models.WeatherData>
+
+@{
+    var latest = Model.LastOrDefault();
+    var summary = latest?.Summary;
+}
+
+<div class="row mb-4" id="metricsPanel">
+    <div class="col-md-3">
+        <div class="card text-center h-100 border-info">
+            <div class="card-body">
+                <h6 class="text-muted">Avg Temperature</h6>
+                <h3 id="avgTempText">@(summary?.AverageTemperature ?? 0) °C</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center h-100 border-primary">
+            <div class="card-body">
+                <h6 class="text-muted">Total Rainfall</h6>
+                <h3 id="totalRainText">@(summary?.TotalRainfall ?? 0) mm</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center h-100 border-warning">
+            <div class="card-body">
+                <h6 class="text-muted">Max Wind Speed</h6>
+                <h3 id="maxWindText">@(summary?.MaxWindSpeed ?? 0) km/h</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center h-100 border-danger">
+            <div class="card-body">
+                <h6 class="text-muted">Storm Probability (Latest)</h6>
+                <h3 id="stormProbText">@(latest?.StormProbability ?? 0)%</h3>
+            </div>
+        </div>
+    </div>
+</div>

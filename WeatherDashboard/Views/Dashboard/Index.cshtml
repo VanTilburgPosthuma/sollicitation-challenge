@@ -1,0 +1,49 @@
+﻿@model List<WeatherDashboard.Models.WeatherData>
+
+@{
+    ViewData["Title"] = "Weather Pattern Simulation";
+}
+
+<div class="container-fluid py-4">
+    <h2 class="mb-4">Weather Pattern Simulation Dashboard</h2>
+
+    @await Html.PartialAsync("_ControlPanel", (WeatherDashboard.Models.SimulationParameters)ViewBag.Parameters)
+
+    @await Html.PartialAsync("_Metrics", Model)
+
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Temperature and Rainfall Patterns</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="weatherChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Wind Speed Trends</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="windChart" height="80"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/dashboard.js"></script>
+    <script>
+        // Pass initial data to JS
+        const initialData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+        initializeDashboard(initialData);
+    </script>
+}
